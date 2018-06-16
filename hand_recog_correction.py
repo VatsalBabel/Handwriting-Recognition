@@ -44,16 +44,16 @@ while True:
             l=len(token)
             list_sugg=[]
             for i in range(0,l):    
-                #print("...................")
+                print("...................")
                 t_line=TextBlob(token[i])
-                #w_line=Word(token[i])
-                #l=w_line.spellcheck()
-                #length=len(l)
-                #print("are you looking for")
-                #for i in range(0,length):
-                 #   print(str(i+1)+"->"+str(l[i][0]))
+                w_line=Word(token[i])
+                l=w_line.spellcheck()
+                length=len(l)
+                print("are you looking for")
+                for i in range(0,length):
+                    print(str(i+1)+"->"+str(l[i][0]))
                 
-                #print("according to me   :"+str(t_line.correct()))
+                print("according to me   :"+str(t_line.correct()))
                 list_sugg.append(str(t_line.correct()))
             print("according to me......")    
             print(" ".join(list_sugg))
