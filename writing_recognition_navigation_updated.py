@@ -45,28 +45,31 @@ while True:
         recogs = pytesseract.image_to_string(toString_image)
         print(recogs)
         l.append(recogs)
-        if len(l)>10:
-            l = list(filter(None, l))
+        l = list(filter(None, l))
+        if len(l)>5:
             try:
-                if((l[0]==l[1] and l[1]==l[2]) and len(l)!=0):
-                    start = l[1]+",jaipur"
-                    finish = "adhoc networks,malviya nagar,jaipur"
+                for i in range(0,len(l)):
                     
-                    #print(start)     
-                    #print(finish)
-                    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((('origin', start),('destination', finish)))
-                    s=urr.urlopen(url)
-                    ur=s.read() 
-                    result = json.loads(ur.decode('utf-8'))
-                    #print(type(result))
-                    #print(result)
-                    for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
-                        j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
-                        print("............................................")
-                        route=j.replace('<b>',' ').replace('</b>',' ').replace('</div>',' ').replace('<div style="font-size:0.9em">',' ')
-                        print(route)
-                    webbrowser.open_new_tab("https://www.google.co.in/maps/place/+"+str(l[1])+",+Jaipur,+Rajasthan/@"+str_pos)
-                    break
+                    if(l[i]==l[i+1] and len(l)!=0):
+                        start = l[i]+",jaipur"
+                        finish = "adhoc networks,malviya nagar,jaipur"
+                        
+                        #print(start)     
+                        #print(finish)
+                        url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((('origin', start),('destination', finish)))
+                        s=urr.urlopen(url)
+                        ur=s.read() 
+                        result = json.loads(ur.decode('utf-8'))
+                        #print(type(result))
+                        #print(result)
+                        for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
+                            j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
+                            print("............................................")
+                            route=j.replace('<b>',' ').replace('</b>',' ').replace('</div>',' ').replace('<div style="font-size:0.9em">',' ')
+                            print(route)
+                        webbrowser.open_new_tab("https://www.google.co.in/maps/place/+"+str(l[1])+"/@"+str_pos)
+                        break
+                break
             except:
                 continue
         #'q' for exit
